@@ -112,6 +112,11 @@ main {
   border: 0;
   outline: 0;
   cursor: pointer;
+  transition: all 0.5s;
+}
+
+.arrow-icon:hover {
+  background-color: #000;
 }
 
 /* result stylings */
