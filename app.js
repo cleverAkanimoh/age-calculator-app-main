@@ -66,7 +66,6 @@ year.oninput = () => {
   birthYear = value;
 };
 
-
 function calculateAge(birthDate, currentDate) {
   const birth = new Date(birthDate);
   const current = new Date(currentDate);
@@ -92,21 +91,29 @@ function calculateAge(birthDate, currentDate) {
   return { years: years, months: months, days: days };
 }
 
-
 function setCalculatedAge() {
-    if (birthDate == undefined) {
-        dayError.textContent ="This is required"
-    }
+  if (birthDay == undefined) {
+    dayError.textContent = "This is required";
+    return;
+  }
+  if (birthMonth == undefined) {
+    monthError.textContent = "This is required";
+    return;
+  }
+  if (birthYear == undefined) {
+    yearError.textContent = "This is required";
+    return;
+  }
+
+  const birthDate = `${birthYear}-${birthMonth}-${birthDay}`; //"1995-06-15";
+
+  const currentDate = new Date(); // or use a specific date like '2024-08-11'
+
+  const { years, months, days } = calculateAge(birthDate, currentDate);
+
+  yearResult.textContent = years;
+  monthResult.textContent = months;
+  dayResult.textContent = days;
 }
 
 calculateButton.onclick = setCalculatedAge;
-
-// Example usage:
-const birthDate = "1995-06-15"; // Replace with the birth date
-const currentDate = new Date(); // or use a specific date like '2024-08-11'
-
-const age = calculateAge(birthDate, currentDate);
-
-console.log(
-  `Age: ${age.years} years, ${age.months} months, and ${age.days} days.`
-);
