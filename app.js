@@ -40,6 +40,8 @@ day.oninput = () => {
     return;
   } else if (value > 31) {
     dayError.textContent = "Invalid day";
+    birthDay = undefined;
+    return;
   }
   birthDay = value;
 };
@@ -50,6 +52,7 @@ month.oninput = () => {
     return;
   } else if (value > 12) {
     monthError.textContent = "Invalid month";
+    birthMonth = undefined;
     return;
   }
   birthMonth = value;
