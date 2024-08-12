@@ -1,3 +1,5 @@
+const calculateButton = document.getElementById("calculate");
+
 // inputs
 const day = document.getElementById("day");
 const month = document.getElementById("month");
@@ -14,9 +16,12 @@ const monthResult = document.getElementsByClassName("result")[1];
 const yearResult = document.getElementsByClassName("result")[0];
 
 const currentYear = new Date().getFullYear();
-const currentMonth = new Date().getMonth() + 1;
+const currentMonth = new Date().getMonth();
 const currentDay = new Date().getDate();
-console.log(currentDay, currentMonth, currentYear);
+
+let birthDay;
+let birthMonth;
+let birthYear;
 
 function stringToNumber(value, error) {
   error.textContent = "";
@@ -33,21 +38,75 @@ day.oninput = () => {
   const value = stringToNumber(day.value, dayError);
   if (value == undefined || value == "") {
     return;
+  } else if (value > 31) {
+    dayError.textContent = "Invalid day";
   }
-  dayResult.innerHTML = currentDay - value;
+  birthDay = value;
 };
 
 month.oninput = () => {
   const value = stringToNumber(month.value, monthError);
   if (value == undefined || value == "") {
     return;
+  } else if (value > 12) {
+    monthError.textContent = "Invalid month";
+    return;
   }
-  monthResult.innerHTML = currentMonth - value;
+  birthMonth = value;
 };
+
 year.oninput = () => {
   const value = stringToNumber(year.value, yearError);
   if (value == undefined || value == "") {
     return;
+  } else if (value > currentYear) {
+    yearError.textContent = "Invalid year";
+    return;
   }
-  yearResult.innerHTML = currentYear - value;
+  birthYear = value;
 };
+
+
+function calculateAge(birthDate, currentDate) {
+  const birth = new Date(birthDate);
+  const current = new Date(currentDate);
+
+  let years = current.getFullYear() - birth.getFullYear();
+  let months = current.getMonth() - birth.getMonth();
+  let days = current.getDate() - birth.getDate();
+
+  // Adjust if the current month-day combination is less than the birth month-day combination
+  if (days < 0) {
+    months -= 1;
+    // Get the last day of the previous month
+    const lastMonth = new Date(current.getFullYear(), current.getMonth(), 0);
+    days += lastMonth.getDate();
+  }
+
+  // Adjust if the current month is less than the birth month
+  if (months < 0) {
+    years -= 1;
+    months += 12;
+  }
+
+  return { years: years, months: months, days: days };
+}
+
+
+function setCalculatedAge() {
+    if (birthDate == undefined) {
+        dayError.textContent ="This is required"
+    }
+}
+
+calculateButton.onclick = setCalculatedAge;
+
+// Example usage:
+const birthDate = "1995-06-15"; // Replace with the birth date
+const currentDate = new Date(); // or use a specific date like '2024-08-11'
+
+const age = calculateAge(birthDate, currentDate);
+
+console.log(
+  `Age: ${age.years} years, ${age.months} months, and ${age.days} days.`
+);
