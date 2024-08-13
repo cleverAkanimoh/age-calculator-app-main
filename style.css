@@ -1,11 +1,11 @@
 @font-face {
   font-family: "Poppins";
-  src: url("/assets/fonts/Poppins-Bold.ttf");
+  src: url("assets/fonts/Poppins-Bold.ttf");
 }
 
 @font-face {
   font-family: "Poppins ExtraBold";
-  src: url("/assets/fonts/Poppins-ExtraBold.ttf");
+  src: url("assets/fonts/Poppins-ExtraBold.ttf");
 }
 
 .attribution {
@@ -20,7 +20,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family:Poppins;
 }
 
 body {
